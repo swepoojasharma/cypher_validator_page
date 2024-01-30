@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ROOT STYLES */
+:root {
+  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  line-height: 1;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* FONT-FACE */
+@font-face {
+  font-family: "Inter-Light";
+  src: url("assets/fonts/Inter-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("assets/fonts/Inter-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter-Medium";
+  src: url("assets/fonts/Inter-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter-SemiBold";
+  src: url("assets/fonts/Inter-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter-Bold";
+  src: url("assets/fonts/Inter-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter-ExtraBold";
+  src: url("assets/fonts/Inter-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter-Black";
+  src: url("assets/fonts/Inter-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "OpenSans-Bold";
+  src: url("assets/fonts/OpenSans-Bold.ttf") format("truetype");
+  font-weight: 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+.loader {
+  width: 24px;
+  padding: 4px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #F1E5FF;
+  --_m: 
+    conic-gradient(#0000 10%,#000),
+    linear-gradient(#000 0 0) content-box;
+  -webkit-mask: var(--_m);
+          mask: var(--_m);
+  -webkit-mask-composite: source-out;
+          mask-composite: subtract;
+  animation: l3 1s infinite linear;
+}
+@keyframes l3 {to{transform: rotate(1turn)}}
+
+
+.countdown-wrapper {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.countdown-wrapper .section-title {
+  margin-bottom: 100px;
+}
+
+.countdown-wrapper .countdown-inner-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 26px;
+}
+
+.countdown-wrapper .countdown-item {
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(2px);
+  border-radius: 33px;
+  width: 243px;
+  height: 253px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.countdown-wrapper .countdown-item .header {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.countdown-wrapper .countdown-item .footer {
+  background: #FFFFFF;
+  backdrop-filter: blur(2px);
+  border-radius: 0px 0px 33px 33px;
+  width: 100%;
+  padding: 12px;
+}
+
+.countdown-wrapper .countdown-item .footer .txt-time {
+  text-transform: uppercase;
+}
