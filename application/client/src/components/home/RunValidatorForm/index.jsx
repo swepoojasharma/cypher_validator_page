@@ -93,7 +93,7 @@ function RunValidatorForm(props) {
         <div className={className}>
             <div className="bg-run-validator bg-no-repeat bg-[length:100%_100%] py-[60px] px-[80px]">
                 <form onSubmit={formikValidator.handleSubmit} autoComplete="off">
-                    <h2 className="text-white-100 text-label-24px-semibold pb-[12px] pt-[20px]">Run your own Validator Node</h2>
+                    <h2 className="text-white-100 text-label-20px-semibold pb-[12px] pt-[20px]">Run your own Validator Node</h2>
                     <TextField
                         name="promo_code"
                         required
