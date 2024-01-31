@@ -74,7 +74,7 @@ function ConnectWalletButton() {
             connectWallet();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [connectedWallet]);
 
     return (
         <>
