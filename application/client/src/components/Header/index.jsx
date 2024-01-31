@@ -87,7 +87,7 @@ function Header() {
                             </li>
                             <li>
                                 <a
-                                    href="https://app.gitbook.com/o/UptOcU4NgCb2f59T3lEf/s/UbydVvq92aZjxyLsMYCB/roadmap"
+                                    href="https://support-168.gitbook.io/cypher-blockchain-whitepaper-v1.0/roadmap"
                                     target="_blank"
                                     rel="noreferrer"
                                     className="block py-2 pr-4 pl-3 lg:p-0 text-label-14px-medium"
@@ -97,7 +97,7 @@ function Header() {
                             </li>
                             <li>
                                 <a
-                                    href="https://app.gitbook.com/o/UptOcU4NgCb2f59T3lEf/s/UbydVvq92aZjxyLsMYCB/tokenomics"
+                                    href="https://support-168.gitbook.io/cypher-blockchain-whitepaper-v1.0/tokenomics"
                                     target="_blank"
                                     rel="noreferrer"
                                     className="block py-2 pr-4 pl-3 lg:p-0 text-label-14px-medium"

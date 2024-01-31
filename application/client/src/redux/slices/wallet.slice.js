@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    connectedWallet: {},
+    connectedWallet: "",
     walletAddress: "",
     selectedChain: null,
 };
