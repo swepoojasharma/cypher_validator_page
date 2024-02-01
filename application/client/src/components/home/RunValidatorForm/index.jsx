@@ -93,7 +93,7 @@ function RunValidatorForm(props) {
         <div className={className}>
             <div className="bg-run-validator bg-no-repeat bg-[length:100%_100%] py-[60px] px-[80px]">
                 <form onSubmit={formikValidator.handleSubmit} autoComplete="off">
-                    <h2 className="text-white-100 text-label-24px-semibold pb-[20px] pt-[20px]">Run your own Validator</h2>
+                    <h2 className="text-white-100 text-label-20px-semibold pb-[12px] pt-[20px]">Run your own Validator Node</h2>
                     <TextField
                         name="promo_code"
                         required
@@ -105,14 +105,15 @@ function RunValidatorForm(props) {
                     <Button
                         type="button"
                         loading={isLoading}
-                        className="text-white-100 font-interMedium text-label-12px-regular py-3 !px-[48px] min-w-[183px] whitespace-nowrap disabled:opacity-60"
+                        className="text-white-100 font-interMedium text-label-12px-regular py-3 !px-[48px] min-w-[183px] whitespace-nowrap disabled:opacity-60 !h-[40px]"
                         disabled={!formikValidator.isValid || !walletAddress}
                         loadingLabel={<Spinner />}
                         onClick={formikValidator.handleSubmit}
                     >
                         Deposit {depositAmount} {depositCurrency}
                     </Button>
-                    <p className="text-red-100 p-3 text-label-12px-regular">{formikValidator.errors.promo_code}</p>
+                    <p className="text-label-10px-medium text-white-100 mt-1">*Promo code gets a 5% Cash Back (0.035 ETH) in 48 Hrs</p>
+                    <p className="text-red-100 py-2 text-label-12px-regular">{formikValidator.errors.promo_code}</p>
                 </form>
             </div>
         </div>

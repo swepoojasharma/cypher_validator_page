@@ -78,6 +78,7 @@ export default {
       "label-14px-medium": ["14px", { lineHeight: "normal", fontWeight: "500" }],
       "label-12px-medium": ["12px", { lineHeight: "normal", fontWeight: "500" }],
       "label-12px-regular": ["12px", { lineHeight: "normal", fontWeight: "bold", letterSpacing: "1.2px" }],
+      "label-10px-medium": ["10px", { lineHeight: "normal", fontWeight: "500" }],
     }
   }
 }
