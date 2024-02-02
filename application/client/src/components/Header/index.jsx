@@ -6,7 +6,13 @@ import ConnectWalletButton from '../ConnectWalletButton';
 function Header() {
     return (
         <header>
-            <nav className="bg-white-100 border-gray-200 pl-3 pr-6 lg:px-6 py-2.5 dark:bg-gray-800 shadow-header">
+            <div className="strip bg-purple-100 fixed w-full h-[48px] z-[100] flex justify-center items-center">
+                <div className="text-white-100 text-label-16px-regular">
+                    Amazing News - Each Validator onboarding in TestNet to get $10000 worth of Cypher at the MainNet launch, over and above Block
+                    rewards.
+                </div>
+            </div>
+            <nav className="bg-white-100 border-gray-200 pl-3 pr-6 lg:px-6 py-2.5 dark:bg-gray-800 shadow-header pt-[56px]">
                 <div className="flex flex-wrap justify-between items-center mx-auto">
                     <a href="/" className="flex items-center">
                         <HeaderLogo className="mr-3 h-8 sm:h-9" />
