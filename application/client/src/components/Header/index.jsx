@@ -1,6 +1,5 @@
 // import ChevronRight from '../../assets/svg-components/ChevronRight';
 // import DarkTheme from '../../assets/svg-components/DarkTheme';
-import { useState } from 'react';
 import HeaderLogo from '../../assets/svg-components/HeaderLogo';
 import ConnectWalletButton from '../ConnectWalletButton';
 
