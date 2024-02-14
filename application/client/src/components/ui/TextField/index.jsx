@@ -1,6 +1,6 @@
 import { cx } from 'class-variance-authority';
 
-function TextField({ readOnly = false, rightButton, value, className, onChange, borderClass, onInput, name, ...props }) {
+function TextField({ leftImage, readOnly = false, rightButton, value, className, inputClassName, onChange, borderClass, onInput, name, ...props }) {
     const hoverClasses = 'hover:border-outline-high focus-within:border-txtElement-medium focus-within:shadow-02';
     return (
         <div
@@ -13,9 +13,11 @@ function TextField({ readOnly = false, rightButton, value, className, onChange, 
                 readOnly && 'bg-surface-1'
             )}
         >
+            {leftImage && <div className="!select-none px-2.5 bg-gray-500 flex items-center h-full">{leftImage}</div>}
             <input
                 className={cx(
-                    'w-full bg-transparent text-body-14px-bold text-txtElement-medium outline-none focus:text-txtElement-high group-hover:text-txtElement-high'
+                    'w-full bg-transparent text-body-14px-bold text-txtElement-medium outline-none focus:text-txtElement-high group-hover:text-txtElement-high',
+                    inputClassName
                 )}
                 type="text"
                 name={name}

@@ -1,5 +1,6 @@
 import BlockTimeIcon from '../../assets/svg-components/BlockTimeIcon';
 import MaxValidatorsIcon from '../../assets/svg-components/MaxValidatorsIcon';
+import CalculateRewardsSection from '../../components/home/CalculateRewardsSection';
 import CypherFeaturesSection from '../../components/home/CypherFeaturesSection';
 import HeroSection from '../../components/home/HeroSection';
 import NumberSection from '../../components/home/NumberSection';
@@ -35,6 +36,7 @@ function HomePage() {
                 <PartnersSection />
                 <CypherFeaturesSection />
                 <TokenomicsSection />
+                <CalculateRewardsSection />
             </div>
         </div>
     );

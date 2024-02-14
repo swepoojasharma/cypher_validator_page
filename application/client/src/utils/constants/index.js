@@ -40,3 +40,13 @@ export const PROMO_CODES = {
     nodeOps: "NODEOPS2024",
     spheron: "SPHERON2024",
 }
+export const facilitatorList = [
+    {
+        value: "nodeOps",
+        label: "NodeOps"
+    },
+    {
+        value: "spheron",
+        label: "Spheron Network"
+    }
+]
