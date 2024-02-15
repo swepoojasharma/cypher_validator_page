@@ -12,7 +12,9 @@ export default {
           100: "#000000",
           200: "#212121",
           300: "#363636",
-          400: "#1A1A1A"
+          400: "#1A1A1A",
+          500: "#242424",
+          600: "#D1D1D1"
         },
         white: {
           100: "#ffffff",
@@ -23,13 +25,15 @@ export default {
           200: "#9D9D9D",
           300: "#EBEBEB",
           400: "#888",
-          500: "#E4E4E4"
+          500: "#E4E4E4",
+          600: "#D9D9D9"
         },
         purple: {
           100: "#AD78EE",
           200: "#F1E5FF",
           300: "#A66EE9",
-          400: "#E0AAFF"
+          400: "#E0AAFF",
+          500: "#F1E7F7"
         },
         red: {
           100: "#FF3535"
@@ -48,6 +52,7 @@ export default {
       backgroundImage: {
         "hero-gradient": "linear-gradient(92deg, #FF73FB 0.49%, #B192F6 20.77%, #4988D3 60.18%, #69C0FF 99.78%)",
         "run-validator": "url(/img/run-validator-bg.svg)",
+        "launch-price": "url(/img/launch-price-bg.svg)",
         "cypher-features": "url(/img/cypher-features-bg.svg)",
         "home-gradient": "conic-gradient(from 180deg at 50% 50%, rgba(217, 217, 217, 0.10) 0deg, rgba(41, 127, 255, 0.10) 0.035999999090563506deg, rgba(191, 56, 255, 0.10) 78.75deg, rgba(207, 104, 255, 0.10) 187.49999284744263deg, rgba(225, 40, 255, 0.10) 268.1250071525574deg, rgba(225, 161, 255, 0.10) 360deg)"
       }
@@ -66,12 +71,15 @@ export default {
       "label-30px-medium": ["30px", { lineHeight: "27px", fontWeight: "500" }],
       "label-24px-semibold": ["24px", { lineHeight: "40px", fontWeight: "600"}],
       "label-24px-medium": ["24px", { lineHeight: "40px", fontWeight: "500"}],
+      "label-22px-regular": ["22px", { lineHeight: "40px", fontWeight: "400"}],
       "label-20px-bold": ["20px", { lineHeight: "28px", fontWeight: "bold" }],
       "label-20px-semibold": ["20px", { lineHeight: "28px", fontWeight: "600" }],
-      "label-20px-medium": ["20px", { lineHeight: "28px", fontWeight: "500" }],
+      "label-20px-regular": ["20px", { lineHeight: "28px", fontWeight: "500" }],
+      "label-20px-medium": ["20px", { lineHeight: "28px", fontWeight: "400" }],
       "label-18px-bold": ["18px", { lineHeight: "26px", fontWeight: "bold" }],
       "label-18px-semibold": ["18px", { lineHeight: "26px", fontWeight: "600" }],
       "label-18px-medium": ["18px", { lineHeight: "26px", fontWeight: "500" }],
+      "label-18px-regular": ["18px", { lineHeight: "26px", fontWeight: "400" }],
       "label-16px-medium": ["16px", { lineHeight: "24px", fontWeight: "500" }],
       "label-16px-regular": ["16px", { lineHeight: "24px", fontWeight: "400" }],
       "label-14px-regular": ["14px", { lineHeight: "normal", fontWeight: "400" }],

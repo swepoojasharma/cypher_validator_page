@@ -1,9 +1,11 @@
 import BlockTimeIcon from '../../assets/svg-components/BlockTimeIcon';
 import MaxValidatorsIcon from '../../assets/svg-components/MaxValidatorsIcon';
+import CalculateRewardsSection from '../../components/home/CalculateRewardsSection';
 import CypherFeaturesSection from '../../components/home/CypherFeaturesSection';
 import HeroSection from '../../components/home/HeroSection';
 import NumberSection from '../../components/home/NumberSection';
 import PartnersSection from '../../components/home/PartnersSection';
+import TokenomicsSection from '../../components/home/TokenomicsSection';
 import { BLOCK_REWARD_CYP, MAX_VALIDATORS } from '../../utils/constants';
 
 function HomePage() {
@@ -33,6 +35,8 @@ function HomePage() {
                 <NumberSection />
                 <PartnersSection />
                 <CypherFeaturesSection />
+                <TokenomicsSection />
+                <CalculateRewardsSection />
             </div>
         </div>
     );
