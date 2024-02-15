@@ -41,8 +41,9 @@ function CalculateRewardsSection() {
 
     useEffect(() => {
         const rewardPerMonthPerValidator = CYP_BONUS_PER_MONTH_PER_VALIDATOR + BLOCK_REWARD_PER_MONTH_PER_VALIDATOR;
-        setCypReward(rewardPerMonthPerValidator);
-    }, []);
+        const finalReward = Number(rewardPerMonthPerValidator) * Number(nodesCount);
+        setCypReward(finalReward);
+    }, [nodesCount]);
 
     useEffect(() => {
         // For 5 months
