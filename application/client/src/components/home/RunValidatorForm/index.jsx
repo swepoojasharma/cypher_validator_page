@@ -5,7 +5,7 @@ import { createValidatorSchema, validatorInitialValues } from './helper';
 import { useEffect, useState } from 'react';
 import Spinner from '../../ui/Spinner';
 // import SuccessProgress from './SuccessProgress';
-import { CURRENT_PHASE, PHASE_CURRENCY, phaseConfig } from '../../../utils/constants';
+import { CURRENT_PHASE, PHASE_CURRENCY, PROMO_CASHBACK_PERCENT, phaseConfig } from '../../../utils/constants';
 import { useSelector } from 'react-redux';
 import { deposit, depositWithPromoCode, getBalance } from '../../../web3-module/library/validator.ethers';
 import { validatorMessages } from '../../../utils/messages';
@@ -15,6 +15,7 @@ function RunValidatorForm(props) {
     const { className } = props;
     const [isLoading, setIsLoading] = useState(false);
     const [depositAmount, setDepositAmount] = useState(0);
+    const [discountedAmount, setDiscountedAmount] = useState(0);
     const [depositCurrency, setDepositCurrency] = useState('');
     const [walletBalance, setWalletBalance] = useState(0);
     const { walletAddress } = useSelector((state) => state.wallet);
@@ -89,6 +90,11 @@ function RunValidatorForm(props) {
         resetStates();
     }, [walletAddress]);
 
+    useEffect(() => {
+        const discount = (depositAmount * PROMO_CASHBACK_PERCENT) / 100;
+        setDiscountedAmount(discount);
+    }, [depositAmount]);
+
     return (
         <div className={className}>
             <div className="bg-run-validator bg-no-repeat bg-[length:100%_100%] py-[60px] px-[80px]">
@@ -112,7 +118,9 @@ function RunValidatorForm(props) {
                     >
                         Deposit {depositAmount} {depositCurrency}
                     </Button>
-                    <p className="text-label-10px-medium text-white-100 mt-1">*Promo code gets a 5% Cash Back (0.035 ETH) in 48 Hrs</p>
+                    <p className="text-label-10px-medium text-white-100 mt-1">
+                        *Promo code gets a {PROMO_CASHBACK_PERCENT}% Cash Back ({discountedAmount} {depositCurrency}) in 48 Hrs
+                    </p>
                     <p className="text-red-100 py-2 text-label-12px-regular">{formikValidator.errors.promo_code}</p>
                 </form>
             </div>

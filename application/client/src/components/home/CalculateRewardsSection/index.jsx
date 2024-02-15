@@ -1,6 +1,14 @@
 import { useEffect, useState } from 'react';
 import CalculatorCard from './CalculatorCard';
-import { facilitatorList, phaseConfig } from '../../../utils/constants';
+import {
+    BLOCK_REWARD_PER_MONTH_PER_VALIDATOR,
+    CURRENT_PHASE,
+    CYP_BONUS_PER_MONTH_PER_VALIDATOR,
+    CYP_USD_PRICE,
+    facilitatorList,
+    facilitatorUsdCost,
+    phaseConfig,
+} from '../../../utils/constants';
 import EthAmountIcon from '../../../assets/svg-components/EthAmountIcon';
 import NumberIcon from '../../../assets/svg-components/NumberIcon';
 
@@ -8,9 +16,9 @@ function CalculateRewardsSection() {
     const userPhasesArray = Object.keys(phaseConfig).map((x) => {
         return { label: `Phase ${x}`, value: x };
     });
-    const [userPhase, setUserPhase] = useState(userPhasesArray[0]);
+    const [userPhase, setUserPhase] = useState(() => userPhasesArray.find((x) => Number(x.value) === CURRENT_PHASE));
     const [ethAmount, setEthAmount] = useState(0);
-    const [nodesCount, setNodesCount] = useState(0);
+    const [nodesCount, setNodesCount] = useState(1);
     const [facilitator, setFacilitator] = useState('');
     const [amount, setAmount] = useState(0);
     const [cypReward, setCypReward] = useState(0);
@@ -22,10 +30,26 @@ function CalculateRewardsSection() {
     }, [userPhase]);
 
     useEffect(() => {
-        console.log({ ethAmount }, { nodesCount });
-        const finalAmount = ethAmount * nodesCount;
-        setAmount(finalAmount);
-    }, [ethAmount, nodesCount]);
+        if (facilitator) {
+            const finalCostPerValidator = facilitatorUsdCost[facilitator.value];
+            const finalAmount = Number(finalCostPerValidator) * Number(nodesCount);
+            setAmount(finalAmount);
+        } else {
+            setAmount(0);
+        }
+    }, [facilitator, nodesCount]);
+
+    useEffect(() => {
+        const rewardPerMonthPerValidator = CYP_BONUS_PER_MONTH_PER_VALIDATOR + BLOCK_REWARD_PER_MONTH_PER_VALIDATOR;
+        setCypReward(rewardPerMonthPerValidator);
+    }, []);
+
+    useEffect(() => {
+        // For 5 months
+        const totalCypReward = cypReward * 5;
+        const totalUsdReward = totalCypReward * CYP_USD_PRICE;
+        setUsdReward(totalUsdReward);
+    }, [cypReward]);
 
     return (
         <div className="mx-64 my-16">
@@ -72,20 +96,26 @@ function CalculateRewardsSection() {
                             selected={facilitator}
                             setSelected={setFacilitator}
                         />
-                        <CalculatorCard title="Amount" leftImage={<EthAmountIcon />} controlType="textbox" controlValue={amount} disabled={true} />
+                        <CalculatorCard
+                            title="Cost per Validator per Month(USD) (Approx.)"
+                            leftImage={<EthAmountIcon />}
+                            controlType="textbox"
+                            controlValue={amount}
+                            disabled={true}
+                        />
                     </div>
                 </div>
                 <div>
                     <div className="grid grid-cols-2 gap-20">
                         <CalculatorCard
-                            title="Reward in CYP"
+                            title="Reward in CYP per Month"
                             leftImage={<EthAmountIcon />}
                             controlType="textbox"
                             controlValue={cypReward}
                             disabled={true}
                         />
                         <CalculatorCard
-                            title="Reward in USD"
+                            title="Total Rewards in USD (Apr - Sept)"
                             leftImage={<EthAmountIcon />}
                             controlType="textbox"
                             controlValue={usdReward}

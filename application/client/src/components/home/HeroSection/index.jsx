@@ -16,7 +16,7 @@ function HeroSection() {
                     <RunValidatorForm />
                 </div>
                 <div className="basis-3/5">
-                    {/* <Spline scene="https://prod.spline.design/tsddfSQuksUNy2vH/scene.splinecode" className="h-full w-full" /> */}
+                    <Spline scene="https://prod.spline.design/tsddfSQuksUNy2vH/scene.splinecode" className="h-full w-full" />
                 </div>
             </div>
             <CountDown />
