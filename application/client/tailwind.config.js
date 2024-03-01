@@ -82,6 +82,7 @@ export default {
       "label-18px-regular": ["18px", { lineHeight: "26px", fontWeight: "400" }],
       "label-16px-medium": ["16px", { lineHeight: "24px", fontWeight: "500" }],
       "label-16px-regular": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+      "label-16px-semibold": ["16px", { lineHeight: "24px", fontWeight: "600" }],
       "label-14px-regular": ["14px", { lineHeight: "normal", fontWeight: "400" }],
       "label-14px-medium": ["14px", { lineHeight: "normal", fontWeight: "500" }],
       "label-12px-medium": ["12px", { lineHeight: "normal", fontWeight: "500" }],

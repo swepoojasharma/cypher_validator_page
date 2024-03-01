@@ -11,8 +11,9 @@ import {
 } from '../../../utils/constants';
 import EthAmountIcon from '../../../assets/svg-components/EthAmountIcon';
 import NumberIcon from '../../../assets/svg-components/NumberIcon';
+import Button from '../../ui/Button';
 
-function CalculateRewardsSection() {
+function CalculateRewardsSection({ runValidatorRef }) {
     const userPhasesArray = Object.keys(phaseConfig).map((x) => {
         return { label: `Phase ${x}`, value: x };
     });
@@ -53,11 +54,11 @@ function CalculateRewardsSection() {
     }, [cypReward]);
 
     return (
-        <div className="mx-64 my-16">
+        <div className="mx-56 my-16">
             <h1 className="text-black-100 text-label-40px-semibold mb-8 text-center uppercase">Calculate Your Rewards</h1>
             <div className="flex flex-col gap-20">
                 <div>
-                    <div className="grid grid-cols-2 gap-20">
+                    <div className="grid grid-cols-3 gap-12">
                         <CalculatorCard
                             title="User Phase"
                             controlType="selectbox"
@@ -72,11 +73,6 @@ function CalculateRewardsSection() {
                             controlValue={ethAmount}
                             disabled={true}
                         />
-                    </div>
-                </div>
-                <div>
-                    <div className="grid grid-cols-2 gap-20">
-                        <CalculatorCard title="Select Nodes" />
                         <CalculatorCard
                             title="Enter number of Nodes"
                             leftImage={<NumberIcon />}
@@ -89,7 +85,7 @@ function CalculateRewardsSection() {
                     </div>
                 </div>
                 <div>
-                    <div className="grid grid-cols-2 gap-20">
+                    <div className="grid grid-cols-3 gap-12">
                         <CalculatorCard
                             title="Facilitators Choice"
                             controlType="selectbox"
@@ -104,9 +100,25 @@ function CalculateRewardsSection() {
                             controlValue={amount}
                             disabled={true}
                         />
+                        <div className="flex flex-col gap-12">
+                            <CalculatorCard
+                                title="Reward in CYP per Month"
+                                leftImage={<EthAmountIcon />}
+                                controlType="textbox"
+                                controlValue={cypReward}
+                                disabled={true}
+                            />
+                            <CalculatorCard
+                                title="Total Rewards in USD (Apr - Sept)"
+                                leftImage={<EthAmountIcon />}
+                                controlType="textbox"
+                                controlValue={usdReward}
+                                disabled={true}
+                            />
+                        </div>
                     </div>
                 </div>
-                <div>
+                {/* <div>
                     <div className="grid grid-cols-2 gap-20">
                         <CalculatorCard
                             title="Reward in CYP per Month"
@@ -123,6 +135,17 @@ function CalculateRewardsSection() {
                             disabled={true}
                         />
                     </div>
+                </div> */}
+                <div className="flex justify-center">
+                    <Button
+                        type="button"
+                        className="text-white-100 font-interMedium text-label-14px-regular py-3 !px-[48px] min-w-[183px] whitespace-nowrap disabled:opacity-60 !h-[40px]"
+                        onClick={() => {
+                            runValidatorRef.current.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                    >
+                        Buy your Validator Node Today
+                    </Button>
                 </div>
             </div>
         </div>

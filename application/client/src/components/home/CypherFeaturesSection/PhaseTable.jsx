@@ -3,24 +3,32 @@ import PhaseRow from './PhaseRow';
 
 function PhaseTable() {
     return (
-        <div className="m-16 shadow-feature-card">
-            <div className="grid grid-cols-3">
-                <div className="bg-purple-400 text-black-100 text-label-18px-semibold p-5 text-center border border-solid border-black-100">
+        <div className="m-8 shadow-feature-card">
+            <div className="grid grid-cols-6">
+                <div className="bg-purple-400 text-black-100 text-label-16px-semibold p-3 text-center border border-solid border-black-100">
                     Phase Level
                 </div>
-                <div className="bg-purple-400 text-black-100 text-label-18px-semibold p-5 text-center border border-solid border-black-100">
-                    Validator Counts
+                <div className="bg-purple-400 text-black-100 text-label-16px-semibold p-3 text-center border border-solid border-black-100">Fee</div>
+                <div className="bg-purple-400 text-black-100 text-label-16px-semibold p-3 text-center border border-solid border-black-100">USD</div>
+                <div className="bg-purple-400 text-black-100 text-label-16px-semibold p-3 text-center border border-solid border-black-100">
+                    Raise
                 </div>
-                <div className="bg-purple-400 text-black-100 text-label-18px-semibold p-5 text-center border border-solid border-black-100">
-                    Validator Cost
+                <div className="bg-purple-400 text-black-100 text-label-16px-semibold p-3 text-center border border-solid border-black-100">
+                    Total Sold
+                </div>
+                <div className="bg-purple-400 text-black-100 text-label-16px-semibold p-3 text-center border border-solid border-black-100">
+                    Recovery Time
                 </div>
             </div>
-            {Object.keys(phaseConfig).map((x, index, { length }) => (
+            {Object.keys(phaseConfig).map((x) => (
                 <PhaseRow
                     key={x}
                     level={x}
-                    count={phaseConfig[x].count}
-                    cost={`${phaseConfig[x].cost} ${index === length - 1 ? 'Cypher Coins (Mainnet)' : PHASE_CURRENCY}`}
+                    cost={`${phaseConfig[x].cost} ${PHASE_CURRENCY}`}
+                    usdCost={`$${phaseConfig[x].usdCost}`}
+                    raise={`$${phaseConfig[x].raise}`}
+                    totalSold={`${phaseConfig[x].totalSold}`}
+                    recovery={phaseConfig[x].recovery}
                 />
             ))}
         </div>

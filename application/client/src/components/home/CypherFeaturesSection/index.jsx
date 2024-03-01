@@ -1,11 +1,13 @@
 import DaoIcon from '../../../assets/svg-components/DaoIcon';
 import RedemptionIcon from '../../../assets/svg-components/RedemptionIcon';
 import TestnetIcon from '../../../assets/svg-components/TestnetIcon';
+import { TESTNET_CYPHER_CREDITED } from '../../../utils/constants';
+import Button from '../../ui/Button';
 import CypherProgramCard from './CypherProgramCard';
 import FeatureCard from './FeatureCard';
 import PhaseTable from './PhaseTable';
 
-function CypherFeaturesSection() {
+function CypherFeaturesSection({ runValidatorRef }) {
     return (
         <div className="relative">
             <div className="mx-64 mb-16">
@@ -15,7 +17,7 @@ function CypherFeaturesSection() {
                         bgColor="#EDFFE0"
                         image={<TestnetIcon height="150px" />}
                         title="Testnet Details"
-                        description="To kickstart the program, all validators will be credited with 2000 TestNet CYPHER.It's important to note that these TestNet tokens are non-redeemable and cannot be converted into real-world currency."
+                        description={`To kickstart the program, all validators will be credited with ${TESTNET_CYPHER_CREDITED} TestNet CYPHER for Staking.It's important to note that these Staked TestNet tokens are non-redeemable and cannot be converted into real-world currency.`}
                         btnLink="https://support-168.gitbook.io/cypher-blockchain-whitepaper-v1.0/cypher-blockchain-validator-program"
                     />
                     <FeatureCard
@@ -50,7 +52,17 @@ function CypherFeaturesSection() {
                 </div>
                 <div className="mx-64 bg-white-100 flex flex-col items-center mb-28">
                     <PhaseTable />
-                    <h1 className="text-black-100 text-label-40px-regular mb-12">Get started today</h1>
+                    <div className="flex justify-center">
+                        <Button
+                            type="button"
+                            className="text-white-100 mb-12 font-interMedium text-label-14px-regular py-3 !px-[48px] min-w-[183px] whitespace-nowrap disabled:opacity-60 !h-[40px]"
+                            onClick={() => {
+                                runValidatorRef.current.scrollIntoView({ behavior: 'smooth' });
+                            }}
+                        >
+                            Buy your Validator Node Today
+                        </Button>
+                    </div>
                 </div>
             </div>
         </div>

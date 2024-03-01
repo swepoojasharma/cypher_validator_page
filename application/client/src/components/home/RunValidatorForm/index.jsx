@@ -2,21 +2,18 @@ import { useFormik } from 'formik';
 import Button from '../../ui/Button';
 import TextField from '../../ui/TextField';
 import { createValidatorSchema, validatorInitialValues } from './helper';
-import { useEffect, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import Spinner from '../../ui/Spinner';
-// import SuccessProgress from './SuccessProgress';
-import { CURRENT_PHASE, PHASE_CURRENCY, PROMO_CASHBACK_PERCENT, phaseConfig } from '../../../utils/constants';
+import { CURRENT_PHASE, phaseConfig } from '../../../utils/constants';
 import { useSelector } from 'react-redux';
 import { deposit, depositWithPromoCode, getBalance } from '../../../web3-module/library/validator.ethers';
 import { validatorMessages } from '../../../utils/messages';
 import { debounce } from 'lodash';
 
-function RunValidatorForm(props) {
+const RunValidatorForm = forwardRef(function RunValidatorForm(props, ref) {
     const { className } = props;
     const [isLoading, setIsLoading] = useState(false);
     const [depositAmount, setDepositAmount] = useState(0);
-    const [discountedAmount, setDiscountedAmount] = useState(0);
-    const [depositCurrency, setDepositCurrency] = useState('');
     const [walletBalance, setWalletBalance] = useState(0);
     const { walletAddress } = useSelector((state) => state.wallet);
 
@@ -81,7 +78,6 @@ function RunValidatorForm(props) {
         const currentPhase = CURRENT_PHASE;
         const currentPhaseConfig = phaseConfig[currentPhase];
         setDepositAmount(currentPhaseConfig.cost);
-        setDepositCurrency(PHASE_CURRENCY);
     }, []);
 
     useEffect(() => {
@@ -90,13 +86,8 @@ function RunValidatorForm(props) {
         resetStates();
     }, [walletAddress]);
 
-    useEffect(() => {
-        const discount = (depositAmount * PROMO_CASHBACK_PERCENT) / 100;
-        setDiscountedAmount(discount);
-    }, [depositAmount]);
-
     return (
-        <div className={className}>
+        <div className={className} ref={ref}>
             <div className="bg-run-validator bg-no-repeat bg-[length:100%_100%] py-[60px] px-[80px]">
                 <form onSubmit={formikValidator.handleSubmit} autoComplete="off">
                     <h2 className="text-white-100 text-label-20px-semibold pb-[12px] pt-[20px]">Run your own Validator Node</h2>
@@ -116,16 +107,13 @@ function RunValidatorForm(props) {
                         loadingLabel={<Spinner />}
                         onClick={formikValidator.handleSubmit}
                     >
-                        Deposit {depositAmount} {depositCurrency}
+                        Buy your Validator Node Today
                     </Button>
-                    <p className="text-label-10px-medium text-white-100 mt-1">
-                        *Promo code gets a {PROMO_CASHBACK_PERCENT}% Cash Back ({discountedAmount} {depositCurrency}) in 48 Hrs
-                    </p>
                     <p className="text-red-100 py-2 text-label-12px-regular">{formikValidator.errors.promo_code}</p>
                 </form>
             </div>
         </div>
     );
-}
+});
 
 export default RunValidatorForm;
