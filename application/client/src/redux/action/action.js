@@ -1,55 +1,64 @@
 import axios from "axios";
 
-export const fetchBlocksCount = async () => {
+export const fetchUSDTPrice = async () => {
     try {
-        const url = `${import.meta.env.REACT_APP_API_BASE_URL}/getCurrentBlock`;
-        const response = await axios.get(url);
-        return response?.data?.getCurrentBlock?.block_header?.raw_data?.number;
-    } catch (error) {
-        console.error(error);
-        return 0;
-    }
-}
+        let url = import.meta.env.REACT_APP_COINGECKO_URL;
+        const vsCurrency = import.meta.env.REACT_APP_COINGECKO_VS_CURRENCIES;
+        const token = import.meta.env.REACT_APP_COINGECKO_TOKEN;
+        url = url?.replace("[IDS]", token);
+        url = url?.replace("[VSCURRENCIES]", vsCurrency);
+        const priceResponse = await axios.get(url);
 
-export const fetchCYPInPool = async () => {
-    try {
-        const url = `${import.meta.env.REACT_APP_API_BASE_URL}/balance/${import.meta.env.REACT_APP_ADMIN_ADDRESS}`;
-        const response = await axios.get(url);
-        let balance = response?.data?.CYP_Balance;
-        let decimals = import.meta.env.REACT_APP_CYPHER_TOKEN_DECIMALS;
-        balance = balance / `1e${decimals}`;
-        return balance;
+        if (priceResponse && priceResponse.data && Object.keys(priceResponse.data).length > 0) {
+            const prices = priceResponse.data;
+            let tokenUsdtPrice = 0;
+            if (prices[token]) {
+                tokenUsdtPrice = prices[token].usd;
+            }
+            return tokenUsdtPrice;
+        }
+        return 0;
     } catch (err) {
-        console.log(err);
+        console.error(err);
         return 0;
     }
-}
+};
 
-export const transferCYP = async (address) => {
+export const checkIfCypherAddress = async (address) => {
     try {
-        const adminPrivateKey = import.meta.env.REACT_APP_ADMIN_PRIVATE_KEY;
-        const transferAmount = import.meta.env.REACT_APP_CYPHER_TRANSFER_AMOUNT;
-        const url = `${import.meta.env.REACT_APP_API_BASE_URL}/transfer/${address}/${transferAmount}/${adminPrivateKey}`;
+        const url = `${import.meta.env.REACT_APP_API_BASE_URL}/isAddress/${address}`;
         const response = await axios.get(url);
-        // if(response?.data.status) {
-        //     const result = response?.data?.Transfer_details;
-        //     return result;
-        // } else {
-        //     return false;
-        // }
-        return response?.data;
+        return response?.data?.isAddress;
     } catch (err) {
         console.log(err);
         return false;
     }
 }
 
-export const checkIfCypherAddress = async (address) => {
+export const checkIfWalletAddressExists = async (address) => {
     try {
-        const url = `${import.meta.env.REACT_APP_API_BASE_URL}/isAddress/${address}`;
+        const baseUrl = import.meta.env.REACT_APP_VALIDATOR_API_BASE_URL;
+        const url = `${baseUrl}/validator/get/${address}`;
         const response = await axios.get(url);
-        const isAddress = response?.data?.isAddress;
-        return isAddress;
+        if(response && response.status === 200 && response.data?.status === true && response.data?.data?.walletAddress.toLowerCase() === address.toLowerCase()) {
+            return response.data.data;
+        }
+        return false;
+    } catch (err) {
+        console.error(err);
+        return false;
+    }
+}
+
+export const saveValidator = async (validatorBody) => {
+    try {
+        const baseUrl = import.meta.env.REACT_APP_VALIDATOR_API_BASE_URL;
+        const url = `${baseUrl}/validator/register`;
+        const response = await axios.post(url, validatorBody);
+        if(response && response.status === 200 && response.data?.status === true) {
+            return response.data.data;
+        }
+        return false;
     } catch (err) {
         console.log(err);
         return false;

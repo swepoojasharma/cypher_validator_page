@@ -8,8 +8,7 @@ function Header() {
         <header>
             <div className="strip bg-purple-100 fixed w-full h-[48px] z-[100] flex justify-center items-center">
                 <div className="text-white-100 text-label-16px-regular">
-                    Amazing News - Each Validator onboarding in TestNet to get $10000 worth of Cypher at the MainNet launch, over and above Block
-                    rewards.
+                    A total of 1 Million Cypher Coins to be Airdropped to TestNet Validators in a span of 5 months.
                 </div>
             </div>
             <nav className="bg-white-100 border-gray-200 pl-3 pr-6 lg:px-6 py-2.5 dark:bg-gray-800 shadow-header pt-[56px]">

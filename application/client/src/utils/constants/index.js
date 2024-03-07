@@ -148,15 +148,25 @@ export const CURRENT_PHASE = 1;
 export const PHASE_CURRENCY = "ETH";
 export const TESTNET_CYPHER_CREDITED = 400;
 export const MAX_VALIDATORS = 4000;
-export const CURRENT_VALIDATORS = 1000;
-export const BLOCKS_PER_MONTH = 216000;
+export const CURRENT_VALIDATORS = 4000;
+// // blocks per month calculation
+// 1sec = 1 block
+// 60sec = 1min = 60 blocks
+// 60min = 1hr = 60 * 60 = 3600 blocks
+// 24hrs = 1day = 3600 * 24 = 86400 blocks
+// 30days = 1month = 86400 * 30 = 2592000 blocks
+export const BLOCKS_PER_DAY = 86400;
+export const BLOCKS_PER_YEAR = 31536000; // BLOCKS_PER_DAY * 365
+export const BLOCKS_PER_MONTH = 2592000;
 export const BLOCK_REWARD_PER_MONTH = BLOCK_REWARD_CYP * BLOCKS_PER_MONTH;
 export const BLOCK_REWARD_PER_MONTH_PER_VALIDATOR = BLOCK_REWARD_PER_MONTH / CURRENT_VALIDATORS;
-export const CYP_BONUS_PER_MONTH_PER_VALIDATOR = 2000;
+export const CYP_BONUS_PER_MONTH_PER_VALIDATOR = 0;
 export const CYP_USD_PRICE = 1;
 export const PROMO_CASHBACK_PERCENT = 5;
+export const AVG_BLOCK_PER_VALIDATOR_PER_YEAR = BLOCKS_PER_YEAR / MAX_VALIDATORS;
+export const AVG_BLOCK_PER_VALIDATOR_PER_MONTH = AVG_BLOCK_PER_VALIDATOR_PER_YEAR / 12;
 
-// Calculation
+// Calculation Old
 // Blocks Per Month - 216,000
 // Reward per block - 0.4 CYP
 // Block Reward per month = 216,000 * 0.4 CYP = 86400 CYP for 1000 validators
@@ -166,8 +176,16 @@ export const PROMO_CASHBACK_PERCENT = 5;
 // Total Reward for 5 months in CYP = (2000 + 86.4) * 5 = ?
 // Total Reward for 5 months in USD will be same coz 1 CYP = 1$ for now
 
+// Updated Calculation - 05-03-24 
+// Blocks Per Month - 2592000
+// Reward per block - 0.5 CYP
+// Block Reward per month = 2592000 * 0.5 CYP = 1296000 CYP for 4000 validators
+// Block Reward per month per validator = 1296000 / 4000 = 324 CYP
+// Total Reward per month per validator = (Reward) = 324 CYP
+// Total Reward for 5 months in CYP = (324) * 5 = ?
+// Total Reward for 5 months in USD will be same coz 1 CYP = 1$ for now
+
 export const PROMO_CODES = {
-    // noCode: "NOCODE",
     nodeOps: "NODEOPS2024",
     spheron: "SPHERON2024",
 }

@@ -18,8 +18,39 @@ export const getBalance = async (address) => {
     }
 }
 
+export const getSlot = async () => {
+    try {
+        // Contract instance
+        const contractInstance = new ethers.Contract(
+            VALIDATOR_CONTRACT_ADDRESS[DESIRED_CHAIN_ID],
+            VALIDATOR_CONTRACT_ABI,
+            web3Config.providerRpc
+        );
+        let currentSlot = await contractInstance.getSlot();
+        return Number(currentSlot);
+    } catch (err) {
+        console.log(`Error on validator.ethers -> getSlot -> `, err);
+        return 0;
+    }
+}
 
-export const deposit = async (amount) => {
+export const getCurrentPhaseAndNodesLeft = async () => {
+    try {
+        // Contract instance
+        const contractInstance = new ethers.Contract(
+            VALIDATOR_CONTRACT_ADDRESS[DESIRED_CHAIN_ID],
+            VALIDATOR_CONTRACT_ABI,
+            web3Config.providerRpc
+        );
+        let availability = await contractInstance.getCurrentPhaseAndNodesLeft();
+        return Number(availability['nodesLeftInPhase']);
+    } catch (err) {
+        console.log(`Error on validator.ethers -> getCurrentPhaseAndNodesLeft -> `, err);
+        return 0;
+    }
+}
+
+export const deposit = async (amount, nodeCount) => {
     try {
         let value = 0;
         // Convert amount to decimals
@@ -32,7 +63,7 @@ export const deposit = async (amount) => {
             web3Config.signer
         );
         // Estimate gas limit
-        let estimatedGasLimit = await contractInstance.estimateGas.depositETH({
+        let estimatedGasLimit = await contractInstance.estimateGas.depositETH(nodeCount, {
             from: web3Config.account,
             value,
         });
@@ -46,7 +77,7 @@ export const deposit = async (amount) => {
             value,
         };
         // Contract function call
-        const transaction = await contractInstance.depositETH(overrides);
+        const transaction = await contractInstance.depositETH(nodeCount, overrides);
         return transaction;
     } catch (err) {
         console.log(`Error on validator.ethers -> deposit ->  ${err}`);
@@ -54,7 +85,7 @@ export const deposit = async (amount) => {
     }
 };
 
-export const depositWithPromoCode = async (amount, promoCode) => {
+export const depositWithPromoCode = async (amount, nodeCount, promoCode) => {
     try {
         let value = 0;
         // Convert amount to decimals
@@ -67,7 +98,7 @@ export const depositWithPromoCode = async (amount, promoCode) => {
             web3Config.signer
         );
         // Estimate gas limit
-        let estimatedGasLimit = await contractInstance.estimateGas.depositETHPromoCode(promoCode, {
+        let estimatedGasLimit = await contractInstance.estimateGas.depositETHPromoCode(nodeCount, promoCode, {
             from: web3Config.account,
             value,
         });
@@ -81,10 +112,10 @@ export const depositWithPromoCode = async (amount, promoCode) => {
             value,
         };
         // Contract function call
-        const transaction = await contractInstance.depositETHPromoCode(promoCode, overrides);
+        const transaction = await contractInstance.depositETHPromoCode(nodeCount, promoCode, overrides);
         return transaction;
     } catch (err) {
-        console.log(`Error on validator.ethers -> deposit ->  ${err}`);
+        console.log(`Error on validator.ethers -> depositWithPromoCode ->  ${err}`);
         return null;
     }
 };

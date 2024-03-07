@@ -1,8 +1,9 @@
 import * as yup from "yup";
 import { validatorMessages } from "../../../utils/messages";
 import { PROMO_CODES } from "../../../utils/constants";
+// import { checkIfCypherAddress } from "../../../redux/action/action";
 
-export const createValidatorSchema = () => {
+export const createValidatorSchema = (availableNodeCount) => {
     return yup.object().shape({
         promo_code: yup
             .string()
@@ -12,10 +13,33 @@ export const createValidatorSchema = () => {
                     return (val === PROMO_CODES.nodeOps.toLowerCase() || val === PROMO_CODES.spheron.toLowerCase());
                 }
                 return true;
+            }),
+        node_count: yup
+            .string()
+            .required(validatorMessages.messages.validations.node_count.error.required)
+            .test("validate-node-count", validatorMessages.messages.validations.node_count.error.validate_node_count, async (val) => {
+                if (val !== undefined && val !== "") {
+                    val = Number(val);
+                    return (val > 0 && val <= availableNodeCount);
+                }
+                return true;
+            }),
+        cypher_address: yup
+            .string()
+            .required(validatorMessages.messages.validations.cypher_address.error.required)
+            .test("validate-cypher-address", validatorMessages.messages.validations.cypher_address.error.validate_cypher_address, async (val) => {
+                if (val !== undefined) {
+                    // const isAddress = checkIfCypherAddress(val);
+                    // return val.length === 34 && val.startsWith("C") && isAddress;
+                    return val.length === 34 && val.startsWith("C");
+                }
+                return true;
             })
     });
 };
 
 export const validatorInitialValues = {
     promo_code: "",
+    node_count: "1",
+    cypher_address: ""
 };

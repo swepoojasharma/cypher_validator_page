@@ -22,3 +22,8 @@ export function copyToClipboard(text, callback, resetCallback) {
             console.error(error);
         });
 }
+
+export function getPhaseBySlot(slot) {
+    // Division by 200 because one phase consists of 200 slots
+    return Math.floor(slot / 200) + 1;
+}

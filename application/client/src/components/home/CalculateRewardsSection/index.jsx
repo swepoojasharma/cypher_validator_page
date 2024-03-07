@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import CalculatorCard from './CalculatorCard';
 import {
     BLOCK_REWARD_PER_MONTH_PER_VALIDATOR,
-    CURRENT_PHASE,
     CYP_BONUS_PER_MONTH_PER_VALIDATOR,
     CYP_USD_PRICE,
     facilitatorList,
@@ -12,18 +11,29 @@ import {
 import EthAmountIcon from '../../../assets/svg-components/EthAmountIcon';
 import NumberIcon from '../../../assets/svg-components/NumberIcon';
 import Button from '../../ui/Button';
+import { getSlot } from '../../../web3-module/library/validator.ethers';
+import { getPhaseBySlot } from '../../../utils/helpers';
 
 function CalculateRewardsSection({ runValidatorRef }) {
     const userPhasesArray = Object.keys(phaseConfig).map((x) => {
         return { label: `Phase ${x}`, value: x };
     });
-    const [userPhase, setUserPhase] = useState(() => userPhasesArray.find((x) => Number(x.value) === CURRENT_PHASE));
+    const [userPhase, setUserPhase] = useState(userPhasesArray[0]);
     const [ethAmount, setEthAmount] = useState(0);
     const [nodesCount, setNodesCount] = useState(1);
     const [facilitator, setFacilitator] = useState('');
     const [amount, setAmount] = useState(0);
     const [cypReward, setCypReward] = useState(0);
     const [usdReward, setUsdReward] = useState(0);
+
+    useEffect(() => {
+        async function calculatePhase() {
+            const currentSlot = await getSlot();
+            const currentPhase = getPhaseBySlot(currentSlot);
+            setUserPhase(userPhasesArray.find((x) => Number(x.value) === currentPhase));
+        }
+        calculatePhase();
+    }, [userPhasesArray]);
 
     useEffect(() => {
         const amount = phaseConfig[userPhase.value].cost;

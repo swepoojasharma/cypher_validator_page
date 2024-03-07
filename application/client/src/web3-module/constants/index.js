@@ -20,6 +20,12 @@ export const VALIDATOR_CONTRACT_ABI = [
         "type": "uint256"
       },
       {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "slot",
+        "type": "uint256"
+      },
+      {
         "indexed": true,
         "internalType": "address",
         "name": "depositor",
@@ -51,49 +57,6 @@ export const VALIDATOR_CONTRACT_ABI = [
       }
     ],
     "name": "Deposit",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "depositor",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "to",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "promoCode",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "time",
-        "type": "uint256"
-      }
-    ],
-    "name": "DepositPromo",
     "type": "event"
   },
   {
@@ -164,6 +127,38 @@ export const VALIDATOR_CONTRACT_ABI = [
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "baseValidatorCost",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "slot",
+        "type": "uint256"
+      }
+    ],
+    "name": "calculateValidatorCost",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
@@ -191,6 +186,25 @@ export const VALIDATOR_CONTRACT_ABI = [
   },
   {
     "inputs": [],
+    "name": "costIncrement",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "node",
+        "type": "uint256"
+      }
+    ],
     "name": "depositETH",
     "outputs": [],
     "stateMutability": "payable",
@@ -198,6 +212,11 @@ export const VALIDATOR_CONTRACT_ABI = [
   },
   {
     "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "node",
+        "type": "uint256"
+      },
       {
         "internalType": "string",
         "name": "promoCode",
@@ -207,6 +226,37 @@ export const VALIDATOR_CONTRACT_ABI = [
     "name": "depositETHPromoCode",
     "outputs": [],
     "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getCurrentPhaseAndNodesLeft",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "currentPhase",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nodesLeftInPhase",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getSlot",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -223,6 +273,32 @@ export const VALIDATOR_CONTRACT_ABI = [
         "internalType": "string",
         "name": "",
         "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "maxSlots",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "numberOfNodesLeft",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -255,6 +331,19 @@ export const VALIDATOR_CONTRACT_ABI = [
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "slotsIncrement",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -268,8 +357,14 @@ export const VALIDATOR_CONTRACT_ABI = [
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "validatorCost",
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "userNodes",
     "outputs": [
       {
         "internalType": "uint256",
@@ -295,10 +390,7 @@ export const VALIDATOR_CONTRACT_ABI = [
   }
 ];
 export const VALIDATOR_CONTRACT_ADDRESS = {
-    // Phase 1 contract
-    // 11155111: "0x296e7c28FeA6f6567CF94857800E68afA71B492D",
-    // Phase 2 contract
-    11155111: "0x4fb5704Ce93C90Fa7933b65204925a428DD091DC"
+    11155111: "0x2bD104Bb71630fDc3533540eDc29F72f61B1409A",
 }
 
 export const DESIRED_CHAIN_ID = 11155111;
