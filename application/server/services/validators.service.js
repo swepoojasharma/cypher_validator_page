@@ -6,7 +6,7 @@ export const createValidator = async (body) => {
 }
 
 export const getValidatorByWalletAddress = async (walletAddress) => {
-    return Validator.findOne({ walletAddress }, {_id: false, __v: false});
+    return Validator.findOne({ walletAddress });
 }
 
 export const getValidatorByCypherAddress = async (cypherAddress) => {

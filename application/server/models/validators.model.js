@@ -43,6 +43,9 @@ const validatorsSchema = new mongoose.Schema(
         email: {
             type: String,
         },
+        referralCode: {
+            type: String,
+        }
     },
     {
         timestamps: true,

@@ -1,17 +1,17 @@
-import { useFormik } from 'formik';
-import Button from '../../ui/Button';
-import TextField from '../../ui/TextField';
-import { createValidatorSchema, validatorInitialValues } from './helper';
 import { forwardRef, useEffect, useState } from 'react';
-import Spinner from '../../ui/Spinner';
-import { phaseConfig } from '../../../utils/constants';
 import { useSelector } from 'react-redux';
-import { deposit, depositWithPromoCode, getBalance, getCurrentPhaseAndNodesLeft, getSlot } from '../../../web3-module/library/validator.ethers';
-import { validatorMessages } from '../../../utils/messages';
+import { useFormik } from 'formik';
+import { cx } from 'class-variance-authority';
 import { debounce } from 'lodash';
+import { deposit, depositWithPromoCode, getBalance, getCurrentPhaseAndNodesLeft, getSlot } from '../../../web3-module/library/validator.ethers';
+import { phaseConfig } from '../../../utils/constants';
+import { validatorMessages } from '../../../utils/messages';
 import { getPhaseBySlot } from '../../../utils/helpers';
 import { checkIfWalletAddressExists, saveValidator } from '../../../redux/action/action';
-import { cx } from 'class-variance-authority';
+import Button from '../../ui/Button';
+import TextField from '../../ui/TextField';
+import Spinner from '../../ui/Spinner';
+import { createValidatorSchema, validatorInitialValues } from './helper';
 
 const RunValidatorForm = forwardRef(function RunValidatorForm(props, ref) {
     const { className } = props;
@@ -22,6 +22,15 @@ const RunValidatorForm = forwardRef(function RunValidatorForm(props, ref) {
     const [isWalletAddressExist, setIsWalletAddressExist] = useState(false);
     const [cypherAddress, setCypherAddress] = useState('');
     const { walletAddress } = useSelector((state) => state.wallet);
+
+    function checkForQueryString() {
+        const queryString = window.location.search;
+        const params = new URLSearchParams(queryString);
+        const referralCode = params.get('referral');
+        if (referralCode) {
+            formikValidator.setFieldValue('promo_code', referralCode);
+        }
+    }
 
     async function checkCurrentConnectedAddress(walletAddress) {
         if (walletAddress) {
@@ -129,6 +138,7 @@ const RunValidatorForm = forwardRef(function RunValidatorForm(props, ref) {
     });
 
     useEffect(() => {
+        checkForQueryString();
         calculateDepositAmount();
         getCurrentPhaseSlotAvailability();
     }, []);
@@ -140,6 +150,12 @@ const RunValidatorForm = forwardRef(function RunValidatorForm(props, ref) {
         // Call API to check if this wallet address exists in the database
         checkCurrentConnectedAddress(walletAddress);
     }, [walletAddress]);
+
+    useEffect(() => {
+        if (phaseSlotAvailability > 0) {
+            formikValidator.setFieldTouched('node_count', true);
+        }
+    }, [phaseSlotAvailability]);
 
     return (
         <div className={className} ref={ref}>
@@ -174,6 +190,16 @@ const RunValidatorForm = forwardRef(function RunValidatorForm(props, ref) {
                                 isWalletAddressExist && 'opacity-50'
                             )}
                             disabled={isWalletAddressExist}
+                            rightButton={
+                                <a
+                                    href={import.meta.env.REACT_APP_WEB_WALLET_URL}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="text-white-100 bg-blue-200 font-interMedium text-label-12px-regular flex justify-center items-center py-3 !px-[12px] whitespace-nowrap !h-[32px] rounded-[10px]"
+                                >
+                                    Get
+                                </a>
+                            }
                         />
                         <Button
                             type="button"
@@ -189,9 +215,9 @@ const RunValidatorForm = forwardRef(function RunValidatorForm(props, ref) {
                             Current Phase Node Count Availability: {phaseSlotAvailability}
                         </h4>
                         <p className="text-red-100 py-2 text-label-12px-regular">
-                            {formikValidator.errors.node_count
+                            {formikValidator.touched.node_count && formikValidator.errors.node_count
                                 ? formikValidator.errors.node_count
-                                : formikValidator.errors.cypher_address
+                                : formikValidator.touched.cypher_address && formikValidator.errors.cypher_address
                                   ? formikValidator.errors.cypher_address
                                   : formikValidator.errors.promo_code}
                         </p>

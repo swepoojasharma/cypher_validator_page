@@ -4,12 +4,21 @@ import { validatorMessages } from '../messages/index.js';
 
 export const registerValidator = async (req, res) => {
     try {
+        // Prepare Referral Code of the Validator
+        const walletAddress = req.body.walletAddress;
+        const referralCode = `${walletAddress.slice(0, 6)}2024`;
+        req.body.referralCode = referralCode;
         // Check if validator already exists based on the wallet address
-        const existingValidator = await ValidatorService.getValidatorByWalletAddress(req.body.walletAddress);
+        const existingValidator = await ValidatorService.getValidatorByWalletAddress(walletAddress);
+        req.body.nodeCount = req.body.nodeCount ? req.body.nodeCount : 1;
         if(existingValidator) {
-            return res.status(httpCode.internalError).send({
+            const validator = await ValidatorService.updateValidator(existingValidator, {
+                ...req.body,
+                nodeCount: Number(req.body.nodeCount) + Number(existingValidator.nodeCount)
+            });
+            return res.status(httpCode.successful).send({
                 status: true,
-                message: validatorMessages.validator.register.alreadyExists,
+                message: validatorMessages.validator.register.success,
                 data: validator
             });
         }

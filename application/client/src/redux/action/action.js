@@ -24,17 +24,6 @@ export const fetchUSDTPrice = async () => {
     }
 };
 
-export const checkIfCypherAddress = async (address) => {
-    try {
-        const url = `${import.meta.env.REACT_APP_API_BASE_URL}/isAddress/${address}`;
-        const response = await axios.get(url);
-        return response?.data?.isAddress;
-    } catch (err) {
-        console.log(err);
-        return false;
-    }
-}
-
 export const checkIfWalletAddressExists = async (address) => {
     try {
         const baseUrl = import.meta.env.REACT_APP_VALIDATOR_API_BASE_URL;

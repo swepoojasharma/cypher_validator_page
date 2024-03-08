@@ -188,6 +188,8 @@ export const AVG_BLOCK_PER_VALIDATOR_PER_MONTH = AVG_BLOCK_PER_VALIDATOR_PER_YEA
 export const PROMO_CODES = {
     nodeOps: "NODEOPS2024",
     spheron: "SPHERON2024",
+    max: "MAX2024",
+    min: "MIN2024"
 }
 export const facilitatorList = [
     {

@@ -43,6 +43,10 @@ export default {
         green: {
           100: "#25B09B",
           200: "#32A63D"
+        },
+        blue: {
+          100: "#1DA1F2",
+          200: "#3E19BD"
         }
       },
       boxShadow: {

@@ -29,7 +29,7 @@ function TokenomicsSection() {
                                     Testnet $CYP Coin Rewards would be swapped 1:1 with Mainnet $CYP coins on Mainnet release
                                 </li>
                                 <li className="text-white-100 text-label-16px-regular">
-                                    Multiple rounds of Cypher Airdrops of $CYP coins for all TestNet validator
+                                    Multiple rounds of Cypher Airdrops of $CYP coins for all TestNet validators
                                 </li>
                             </ul>
                         </div>
