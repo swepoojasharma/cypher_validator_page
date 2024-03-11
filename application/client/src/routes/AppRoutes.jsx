@@ -1,11 +1,16 @@
 import { memo } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import HomePage from '../pages/HomePage';
+import DashboardPage from '../pages/DashboardPage';
 
 const routes = [
     {
         path: '/',
         Element: <HomePage />,
+    },
+    {
+        path: '/dashboard',
+        Element: <DashboardPage />,
     },
     {
         path: '*',

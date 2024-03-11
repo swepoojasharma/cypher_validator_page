@@ -50,7 +50,7 @@ export const getCurrentPhaseAndNodesLeft = async () => {
     }
 }
 
-export const deposit = async (amount, nodeCount) => {
+export const deposit = async (amount, nodeCount, cypherAddress) => {
     try {
         let value = 0;
         // Convert amount to decimals
@@ -63,7 +63,7 @@ export const deposit = async (amount, nodeCount) => {
             web3Config.signer
         );
         // Estimate gas limit
-        let estimatedGasLimit = await contractInstance.estimateGas.depositETH(nodeCount, {
+        let estimatedGasLimit = await contractInstance.estimateGas.depositETH(nodeCount, cypherAddress, {
             from: web3Config.account,
             value,
         });
@@ -77,7 +77,7 @@ export const deposit = async (amount, nodeCount) => {
             value,
         };
         // Contract function call
-        const transaction = await contractInstance.depositETH(nodeCount, overrides);
+        const transaction = await contractInstance.depositETH(nodeCount, cypherAddress, overrides);
         return transaction;
     } catch (err) {
         console.log(`Error on validator.ethers -> deposit ->  ${err}`);
@@ -85,7 +85,7 @@ export const deposit = async (amount, nodeCount) => {
     }
 };
 
-export const depositWithPromoCode = async (amount, nodeCount, promoCode) => {
+export const depositWithPromoCode = async (amount, nodeCount, cypherAddress, promoCode) => {
     try {
         let value = 0;
         // Convert amount to decimals
@@ -98,7 +98,7 @@ export const depositWithPromoCode = async (amount, nodeCount, promoCode) => {
             web3Config.signer
         );
         // Estimate gas limit
-        let estimatedGasLimit = await contractInstance.estimateGas.depositETHPromoCode(nodeCount, promoCode, {
+        let estimatedGasLimit = await contractInstance.estimateGas.depositETHPromoCode(nodeCount, cypherAddress, promoCode, {
             from: web3Config.account,
             value,
         });
@@ -112,7 +112,7 @@ export const depositWithPromoCode = async (amount, nodeCount, promoCode) => {
             value,
         };
         // Contract function call
-        const transaction = await contractInstance.depositETHPromoCode(nodeCount, promoCode, overrides);
+        const transaction = await contractInstance.depositETHPromoCode(nodeCount, cypherAddress, promoCode, overrides);
         return transaction;
     } catch (err) {
         console.log(`Error on validator.ethers -> depositWithPromoCode ->  ${err}`);

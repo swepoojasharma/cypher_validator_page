@@ -53,3 +53,18 @@ export const saveValidator = async (validatorBody) => {
         return false;
     }
 }
+
+export const isReferralCodeValid = async (walletAddress, referralCode) => {
+    try {
+        const baseUrl = import.meta.env.REACT_APP_VALIDATOR_API_BASE_URL;
+        const url = `${baseUrl}/validator/isValidReferral/${walletAddress}/${referralCode}`;
+        const response = await axios.get(url);
+        if(response && response.status === 200 && response.data?.status === true) {
+            return response.data.data;
+        }
+        return false;
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+}

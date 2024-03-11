@@ -33,9 +33,9 @@ export const VALIDATOR_CONTRACT_ABI = [
       },
       {
         "indexed": false,
-        "internalType": "address",
-        "name": "to",
-        "type": "address"
+        "internalType": "string",
+        "name": "cypherAddress",
+        "type": "string"
       },
       {
         "indexed": false,
@@ -203,6 +203,11 @@ export const VALIDATOR_CONTRACT_ABI = [
         "internalType": "uint256",
         "name": "node",
         "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "cypherAddress",
+        "type": "string"
       }
     ],
     "name": "depositETH",
@@ -216,6 +221,11 @@ export const VALIDATOR_CONTRACT_ABI = [
         "internalType": "uint256",
         "name": "node",
         "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "cypherAddress",
+        "type": "string"
       },
       {
         "internalType": "string",
@@ -390,7 +400,7 @@ export const VALIDATOR_CONTRACT_ABI = [
   }
 ];
 export const VALIDATOR_CONTRACT_ADDRESS = {
-    11155111: "0x4455B2983334c5f2B2197efE2eEE3CDf24d9738d",
+    11155111: "0x5A7165c9dDAC5e4bf93c3dEc2fE99B1338411225",
 }
 
 export const DESIRED_CHAIN_ID = 11155111;

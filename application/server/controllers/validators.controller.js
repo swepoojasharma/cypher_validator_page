@@ -6,10 +6,11 @@ export const registerValidator = async (req, res) => {
     try {
         // Prepare Referral Code of the Validator
         const walletAddress = req.body.walletAddress;
-        const referralCode = `${walletAddress.slice(0, 6)}2024`;
+        const promoCode = req.body.promoCode;
+        const referralCode = `${walletAddress.toLowerCase().slice(0, 6)}2024`;
         req.body.referralCode = referralCode;
         // Check if validator already exists based on the wallet address
-        const existingValidator = await ValidatorService.getValidatorByWalletAddress(walletAddress);
+        const existingValidator = await ValidatorService.getValidatorByWalletAndPromo(walletAddress, promoCode);
         req.body.nodeCount = req.body.nodeCount ? req.body.nodeCount : 1;
         if(existingValidator) {
             const validator = await ValidatorService.updateValidator(existingValidator, {
@@ -61,6 +62,41 @@ export const getValidatorByWalletAddress = async (req, res) => {
             message: validatorMessages.validator.found.success,
             data: validator
         });
+    } catch(err) {
+        console.log(err);
+        return res.status(httpCode.internalError).send({
+            status: false,
+            message: err.message,
+            data: null
+        });
+    }
+}
+
+export const checkIfValidReferralCode = async (req, res) => {
+    try {
+        const referralCode = req.params.referralCode;
+        const walletAddress = req.params.walletAddress;
+        const validator = await ValidatorService.getValidatorByReferralCode(referralCode);
+        if(!validator) {
+            return res.status(httpCode.successful).send({
+                status: false,
+                message: validatorMessages.validator.referralCode.invalid,
+                data: null
+            });
+        }
+        if(validator.walletAddress.toLowerCase() === walletAddress.toLowerCase() && validator.referralCode.toLowerCase() === referralCode.toLowerCase()) {
+            return res.status(httpCode.successful).send({
+                status: false,
+                message: validatorMessages.validator.referralCode.cannotUseOwnCode,
+                data: validator
+            });
+        } else {
+            return res.status(httpCode.successful).send({
+                status: true,
+                message: validatorMessages.validator.referralCode.valid,
+                data: validator
+            });
+        }
     } catch(err) {
         console.log(err);
         return res.status(httpCode.internalError).send({

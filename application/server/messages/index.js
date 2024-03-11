@@ -17,6 +17,11 @@ export const validatorMessages = {
         found: {
             success: 'Validator found successfully',
             error: 'Validator not found'
+        },
+        referralCode: {
+            valid: 'Referral Code is valid',
+            invalid: 'Invalid Referral Code',
+            cannotUseOwnCode: 'Cannot use your own referral code'
         }
     }
 }

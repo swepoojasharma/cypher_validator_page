@@ -77,13 +77,13 @@ const RunValidatorForm = forwardRef(function RunValidatorForm(props, ref) {
         setIsLoading(false);
     };
 
-    const depositAction = async (depositAmount, nodeCount, promoCode, successCallback, validatorObj) => {
+    const depositAction = async (depositAmount, nodeCount, cypherAdd, promoCode, successCallback, validatorObj) => {
         setIsLoading(true);
         let txnDeposit = null;
         if (promoCode) {
-            txnDeposit = await depositWithPromoCode(depositAmount, nodeCount, promoCode);
+            txnDeposit = await depositWithPromoCode(depositAmount, nodeCount, cypherAdd, promoCode);
         } else {
-            txnDeposit = await deposit(depositAmount, nodeCount);
+            txnDeposit = await deposit(depositAmount, nodeCount, cypherAdd);
         }
         if (txnDeposit) {
             const receipt = await txnDeposit.wait();
@@ -124,12 +124,12 @@ const RunValidatorForm = forwardRef(function RunValidatorForm(props, ref) {
                 await checkCurrentConnectedAddress(walletAddress);
                 setIsLoading(false);
             };
-            await depositAction(finalDepositAmount, nodeCount, promoCode, successCallback, validatorObj);
+            await depositAction(finalDepositAmount, nodeCount, payload.cypher_address, promoCode, successCallback, validatorObj);
         }
     };
 
     const formikValidator = useFormik({
-        validationSchema: createValidatorSchema(phaseSlotAvailability),
+        validationSchema: createValidatorSchema(walletAddress, phaseSlotAvailability),
         onSubmit: submitDeposit,
         initialValues: validatorInitialValues,
         enableReinitialize: true,
@@ -168,7 +168,7 @@ const RunValidatorForm = forwardRef(function RunValidatorForm(props, ref) {
                             required
                             value={formikValidator.values.promo_code}
                             onChange={formikValidator.handleChange}
-                            placeholder="Enter the promo code (optional)"
+                            placeholder="Enter the Promo/Referral code (optional)"
                             className="border border-solid border-purple-200 shadow-text-field !py-0.5 !pr-0.5 !px-6 mb-3 h-10 text-white-100"
                         />
                         <TextField
@@ -195,7 +195,7 @@ const RunValidatorForm = forwardRef(function RunValidatorForm(props, ref) {
                                     href={import.meta.env.REACT_APP_WEB_WALLET_URL}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="text-white-100 bg-blue-200 font-interMedium text-label-12px-regular flex justify-center items-center py-3 !px-[12px] whitespace-nowrap !h-[32px] rounded-[10px]"
+                                    className="text-white-100 bg-blue-200 font-interMedium text-label-12px-regular flex justify-center items-center py-3 !px-[12px] whitespace-nowrap !h-[32px] rounded-[10px] mr-[2px]"
                                 >
                                     Get
                                 </a>

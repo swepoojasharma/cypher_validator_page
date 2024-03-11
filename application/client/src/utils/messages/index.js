@@ -5,7 +5,7 @@ export const validatorMessages = {
         validations: {
             promo_code: {
                 error: {
-                    validate_promo_code: "Invalid Promo Code",
+                    validate_promo_code: "Invalid Code",
                 },
             },
             node_count: {
